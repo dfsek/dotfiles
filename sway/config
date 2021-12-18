@@ -63,7 +63,14 @@ input type:touchpad {
     natural_scroll enabled
 }
 
-input type:keyboard xkb_options caps:swapescape
+#input type:keyboard xkb_options caps:swapescape
+
+input type:keyboard {
+    xkb_layout us
+    xkb_options caps:super
+}
+
+
 
 ### Key bindings
 
@@ -79,6 +86,10 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86Search exec $menu
+
+
+# Screenshot
+bindsym Print exec grimshot copy area
 
 #
 # Basics:
@@ -241,8 +252,8 @@ include @sysconfdir@/sway/config.d/*
 
 # Idle config
 exec swayidle -w \
-         timeout 120 'swaylock' \
-         timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+         timeout 3000 'swaylock' \
+         timeout 60000 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
          before-sleep 'swaylock' \
          lock 'swaylock'
 
@@ -256,13 +267,14 @@ set $display2 DP-2
 set $display3 HDMI-A-1
 set $display4 eDP-1 
 
-output $display4 position 1920 1080
-output $display2 position 1920 0
-output $display3 position 0 0
-output $display1 position 3840 0 resolution 1920 1080
+output $display4 position 1920 1080 resolution 1920 1080
+output $display2 position 1920 0 resolution 1920 1080
+output $display1 position 0 0 resolution 1920 1080
+output $display3 position 3840 0
 
+#output $display3 scale 1.5
 
-workspace 3 output $display1
+workspace 1 output $display1
 workspace 2 output $display2
-workspace 1 output $display3
+workspace 3 output $display3
 workspace 4 output $display4
